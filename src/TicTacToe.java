@@ -21,6 +21,7 @@ public class TicTacToe {
         System.out.println("1|2|3\n-+-+-\n4|5|6\n-+-+-\n7|8|9\n");
         System.out.println("How to play:\nObjective is to get 3 in a row of your piece, X. You can also win by filling all 4 corners.\nGood luck! Hit enter to play...");
         String randomSPH = scan.nextLine();
+        // This is real
         clearOutput();
         while (true) {
 
