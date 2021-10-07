@@ -17,12 +17,17 @@ public class TicTacToe {
                 {' ','|',' ','|',' '}
         };
         clearOutput();
-        Scanner scan = new Scanner(System.in);
-        System.out.println("1|2|3\n-+-+-\n4|5|6\n-+-+-\n7|8|9\n");
-        System.out.println("How to play:\nObjective is to get 3 in a row of your piece, X. You can also win by filling all 4 corners.\nGood luck! Hit enter to play...");
-        String randomSPH = scan.nextLine();
-        // This is real
+        // Fixed the issue where you had to press enter twice.
+        // Tried everything I can think of. I tested in eclipse and every work just fine.
+        // It must just be IntelliJ
+        System.out.println("How to play the game. Well it's really easy you see. Just type what number you want\n" +
+                "compared to the game board down below. Oh, and getting all corners is a winner too!");
+        System.out.println("1|2|3\n-+-+-\n4|5|6\n-+-+-\n7|8|9");
+        System.out.println("Hit \"ENTER\" to start!");
+        Scanner enterWait = new Scanner(System.in);
+        enterWait.nextLine();
         clearOutput();
+        Scanner scan = new Scanner(System.in);
         while (true) {
 
             if (gameReset) {
