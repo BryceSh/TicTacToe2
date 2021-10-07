@@ -23,6 +23,7 @@ public class TicTacToe {
     static ArrayList<Integer> playerPositions = new ArrayList<Integer>();
     static ArrayList<Integer> cpuPositions = new ArrayList<Integer>();
     public static boolean gameReset = false;
+    public static int gameBoardLayout = 9; // This is how many spaces are in the available game board.
 
     public static void main(String[] args) {
 
@@ -61,6 +62,12 @@ public class TicTacToe {
 
             System.out.print("Enter your placement (1-9)");
             int playerPlacement = scan.nextInt();
+
+            // Makes sure that the user picks a number between 1-gameBoardLayout
+            while (playerPlacement > gameBoardLayout || playerPlacement < 1) {
+                System.out.print("Please choose a value between 1 - " + gameBoardLayout + ". Please try again: ");
+                playerPlacement = scan.nextInt();
+            }
 
             // This while loop determines if the player or CPU already used that spot. If so it loops
             while (playerPositions.contains(playerPlacement) || cpuPositions.contains(playerPlacement)) {
