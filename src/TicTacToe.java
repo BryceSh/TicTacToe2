@@ -9,12 +9,13 @@ public class TicTacToe {
     public static void main(String[] args) {
 
         gameReset = false;
+        // Made it so that the game board also shows when playing the game
         char[][] gameBoard = {
-                {' ','|',' ','|',' '},
-                {'-','+','-','+','-'},
-                {' ','|',' ','|',' '},
-                {'-','+','-','+','-'},
-                {' ','|',' ','|',' '}
+                {' ','|',' ','|',' ', ' ', ' ', '1','|','2','|','3'},
+                {'-','+','-','+','-', ' ', ' ', '-','+','-','+','-'},
+                {' ','|',' ','|',' ', ' ', ' ', '4','|','5','|','6'},
+                {'-','+','-','+','-', ' ', ' ', '-','+','-','+','-'},
+                {' ','|',' ','|',' ', ' ', ' ', '7','|','8','|','9'}
         };
         clearOutput();
         // Fixed the issue where you had to press enter twice.
