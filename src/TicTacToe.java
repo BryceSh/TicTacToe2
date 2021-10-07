@@ -1,15 +1,35 @@
+/*
+  _    _ _     _       _ _   _  _____
+ | |  | | |   (_)     (_) | (_)/ ____|
+ | |  | | |__  _ _ __  _| |_ _| (___
+ | |  | | '_ \| | '_ \| | __| |\___ \
+ | |__| | |_) | | | | | | |_| |____) |
+  \____/|_.__/|_|_| |_|_|\__|_|_____/
+
+This script made by Bryce Sheridan, https://github.com/UbinitiS
+Please don't copy :) I'm trying to do good.
+This is just a pretty simple TicTacToe Game that runs in the output window.
+My third version will use a GUI instead. I've scripted this game so that way you can
+easily add different winning combinations.
+
+ */
+// Keep it clean with the imports :)
 import java.util.*;
+
 
 public class TicTacToe {
 
+    // ArrayList for storing already used moved from either Player or CPU positions.
     static ArrayList<Integer> playerPositions = new ArrayList<Integer>();
     static ArrayList<Integer> cpuPositions = new ArrayList<Integer>();
     public static boolean gameReset = false;
 
     public static void main(String[] args) {
 
+        // You can call this when ever you want the game to reset to the main menu. Just set it to true.
         gameReset = false;
-        // Made it so that the game board also shows when playing the game
+
+        // This is the game board layout. The script really only uses data from [0][0] - [4][4] the rest is just for style
         char[][] gameBoard = {
                 {' ','|',' ','|',' ', ' ', ' ', '1','|','2','|','3'},
                 {'-','+','-','+','-', ' ', ' ', '-','+','-','+','-'},
@@ -18,9 +38,6 @@ public class TicTacToe {
                 {' ','|',' ','|',' ', ' ', ' ', '7','|','8','|','9'}
         };
         clearOutput();
-        // Fixed the issue where you had to press enter twice.
-        // Tried everything I can think of. I tested in eclipse and every work just fine.
-        // It must just be IntelliJ
         System.out.println("How to play the game. Well it's really easy you see. Just type what number you want\n" +
                 "compared to the game board down below. Oh, and getting all corners is a winner too!");
         System.out.println("1|2|3\n-+-+-\n4|5|6\n-+-+-\n7|8|9");
@@ -28,9 +45,11 @@ public class TicTacToe {
         Scanner enterWait = new Scanner(System.in);
         enterWait.nextLine();
         clearOutput();
+        // This is where the good stuff is. This is the main game function.
         Scanner scan = new Scanner(System.in);
         while (true) {
 
+            // This if statement is called when the gameReset = true.
             if (gameReset) {
                 Scanner enterRequired = new Scanner(System.in);
                 String randomString = enterRequired.nextLine();
@@ -43,6 +62,7 @@ public class TicTacToe {
             System.out.print("Enter your placement (1-9)");
             int playerPlacement = scan.nextInt();
 
+            // This while loop determines if the player or CPU already used that spot. If so it loops
             while (playerPositions.contains(playerPlacement) || cpuPositions.contains(playerPlacement)) {
                 System.out.print("Oops! That place already is taken! Try again: ");
                 playerPlacement = scan.nextInt();
@@ -52,6 +72,7 @@ public class TicTacToe {
             Random rand = new Random();
             int cpuPlacement = rand.nextInt(9) + 1;
 
+            // This is the cpu Placement. It loops until it finds an open spot. If after 10 and it doesn't find it, it skips.
             int loopTrys = 0;
             boolean loopBreak = false;
             while (playerPositions.contains(cpuPlacement) || cpuPositions.contains(cpuPlacement)) {
@@ -63,6 +84,7 @@ public class TicTacToe {
                 }
             }
             clearOutput();
+            // Only places the piece on the gameBoard if a spot is found.
             if (!loopBreak) {
                 playerPiece(gameBoard, cpuPlacement, "cpu");
             }
@@ -73,8 +95,10 @@ public class TicTacToe {
 
     }
 
+    // This method calculates if someone wins.
     public static String checkWinner() {
 
+        // This is all the possible winning combinations, plus a custom one called Corners.
         List<List> winning = new ArrayList<List>();
         winning.add(Arrays.asList(1,2,3));
         winning.add(Arrays.asList(4,5,6));
@@ -86,6 +110,7 @@ public class TicTacToe {
         winning.add(Arrays.asList(3,5,7));
         winning.add(Arrays.asList(1,3,7,9));
 
+        // I split up the player and cpu and tie up because it wasn't working right the first time.
         for (List l : winning) {
             if (playerPositions.containsAll(l)) {
                 gameReset = true;
@@ -111,6 +136,8 @@ public class TicTacToe {
 
     }
 
+
+    // This method when called prints out the gameBoard using for loops.
     public static void printGameBoard(char[][] gameBoard) {
 
         for (char[] row : gameBoard) {
@@ -125,6 +152,8 @@ public class TicTacToe {
 
     }
 
+    // This method when called places the playerPiece on a char array between 1-9
+    // called by playerPiece(gameBoard, POS, either player or cpu)
     public static void playerPiece(char[][] gameBoard, int pos, String user) {
 
         char symbol = ' ';
@@ -172,6 +201,7 @@ public class TicTacToe {
 
     }
 
+    // This just clears the output window.
     public static void clearOutput() {
 
         for (int i = 0; i < 15; i++) {
