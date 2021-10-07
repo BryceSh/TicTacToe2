@@ -20,10 +20,11 @@ import java.util.*;
 public class TicTacToe {
 
     // ArrayList for storing already used moved from either Player or CPU positions.
-    static ArrayList<Integer> playerPositions = new ArrayList<Integer>();
-    static ArrayList<Integer> cpuPositions = new ArrayList<Integer>();
+    static ArrayList<Integer> playerPositions = new ArrayList<>();
+    static ArrayList<Integer> cpuPositions = new ArrayList<>();
     public static boolean gameReset = false;
     public static int gameBoardLayout = 9; // This is how many spaces are in the available game board.
+    public static Random rand = new Random();
 
     public static void main(String[] args) {
 
@@ -32,16 +33,15 @@ public class TicTacToe {
 
         // This is the game board layout. The script really only uses data from [0][0] - [4][4] the rest is just for style
         char[][] gameBoard = {
-                {' ','|',' ','|',' ', ' ', ' ', '1','|','2','|','3'},
-                {'-','+','-','+','-', ' ', ' ', '-','+','-','+','-'},
-                {' ','|',' ','|',' ', ' ', ' ', '4','|','5','|','6'},
-                {'-','+','-','+','-', ' ', ' ', '-','+','-','+','-'},
-                {' ','|',' ','|',' ', ' ', ' ', '7','|','8','|','9'}
+                {' ','|',' ','|',' ', ' ', ' ', ' ', '1','|','2','|','3'},
+                {'-','+','-','+','-', ' ', ' ', ' ', '-','+','-','+','-'},
+                {' ','|',' ','|',' ', ' ', ' ', ' ', '4','|','5','|','6'},
+                {'-','+','-','+','-', ' ', ' ', ' ', '-','+','-','+','-'},
+                {' ','|',' ','|',' ', ' ', ' ', ' ', '7','|','8','|','9'}
         };
         clearOutput();
         System.out.println("How to play the game. Well it's really easy you see. Just type what number you want\n" +
                 "compared to the game board down below. Oh, and getting all corners is a winner too!");
-        System.out.println("1|2|3\n-+-+-\n4|5|6\n-+-+-\n7|8|9");
         System.out.println("Hit \"ENTER\" to start!");
         Scanner enterWait = new Scanner(System.in);
         enterWait.nextLine();
@@ -53,7 +53,7 @@ public class TicTacToe {
             // This if statement is called when the gameReset = true.
             if (gameReset) {
                 Scanner enterRequired = new Scanner(System.in);
-                String randomString = enterRequired.nextLine();
+                enterRequired.nextLine();
                 playerPositions.clear();
                 cpuPositions.clear();
                 main(null);
@@ -76,16 +76,13 @@ public class TicTacToe {
             }
             playerPiece(gameBoard, playerPlacement, "player");
 
-            Random rand = new Random();
             int cpuPlacement = rand.nextInt(9) + 1;
 
             // This is the cpu Placement. It loops until it finds an open spot. If after 10 and it doesn't find it, it skips.
-            int loopTrys = 0;
             boolean loopBreak = false;
             while (playerPositions.contains(cpuPlacement) || cpuPositions.contains(cpuPlacement)) {
                 cpuPlacement = rand.nextInt(9) + 1;
-                loopTrys += 1;
-                if (loopTrys == 10) {
+                if (playerPositions.size() + cpuPositions.size() == 9) {
                     loopBreak = true;
                     break;
                 }
@@ -101,6 +98,7 @@ public class TicTacToe {
         }
 
     }
+
 
     // This method calculates if someone wins.
     public static String checkWinner() {
@@ -125,7 +123,6 @@ public class TicTacToe {
 
             }
         }
-
         for (List l : winning) {
             if (cpuPositions.containsAll(l)) {
                 gameReset = true;
@@ -133,14 +130,12 @@ public class TicTacToe {
 
             }
         }
-
         if (playerPositions.size() + cpuPositions.size() == 9) {
             gameReset = true;
             return "Tie! Please play again\nHit enter to play again.";
 
         }
         return "";
-
     }
 
 
@@ -173,37 +168,20 @@ public class TicTacToe {
             cpuPositions.add(pos);
         }
 
-        switch (pos) {
-            case 1:
-                gameBoard[0][0] = symbol;
-                break;
-            case 2:
-                gameBoard[0][2] = symbol;
-                break;
-            case 3:
-                gameBoard[0][4] = symbol;
-                break;
-            case 4:
-                gameBoard[2][0] = symbol;
-                break;
-            case 5:
-                gameBoard[2][2] = symbol;
-                break;
-            case 6:
-                gameBoard[2][4] = symbol;
-                break;
-            case 7:
-                gameBoard[4][0] = symbol;
-                break;
-            case 8:
-                gameBoard[4][2] = symbol;
-                break;
-            case 9:
-                gameBoard[4][4] = symbol;
-                break;
-            default:
-                break;
 
+        // Rewrote this switch statement.
+        switch (pos) {
+            case 1 -> gameBoard[0][0] = symbol;
+            case 2 -> gameBoard[0][2] = symbol;
+            case 3 -> gameBoard[0][4] = symbol;
+            case 4 -> gameBoard[2][0] = symbol;
+            case 5 -> gameBoard[2][2] = symbol;
+            case 6 -> gameBoard[2][4] = symbol;
+            case 7 -> gameBoard[4][0] = symbol;
+            case 8 -> gameBoard[4][2] = symbol;
+            case 9 -> gameBoard[4][4] = symbol;
+            default -> {
+            }
         }
 
     }
